@@ -224,23 +224,23 @@
                         /* overview total posts */
                         overviewTotalPosts = document.createElement("div");
                         overviewTotalPosts.setAttribute("id", "overviewTotalPosts");
-                        console.log(data.counts.total.count);
-                        overviewTotalPosts.appendChild(document.createTextNode(data.counts.total.count));
+                        console.log(data.total.count);
+                        overviewTotalPosts.appendChild(document.createTextNode(data.total.count));
                         document.getElementById("overview-postinformation").appendChild(overviewTotalPosts);
                         /* overview rank */
                         overviewRank = document.createElement("div");
                         overviewRank.setAttribute("id", "overviewRank");
-                        var ranking = rankifier(data.counts.total.rank);
+                        var ranking = rankifier(data.total.rank);
                         overviewRank.appendChild(document.createTextNode(ranking));
                         document.getElementById("overview-postinformation").appendChild(overviewRank);
                         /* first posted */
-                        var da = `FIRST POST: ${monthList[new Date(data.firstSeen.date).getMonth()]} ${rankifier(new Date(data.firstSeen.date).getDate())}, ${new Date(data.firstSeen.date).getFullYear()}`;  
+                        var da = `FIRST POST: ${monthList[new Date(data.firstSeen).getMonth()]} ${rankifier(new Date(data.firstSeen).getDate())}, ${new Date(data.firstSeen).getFullYear()}`;  
                         firstPost = document.createElement("div");
                         firstPost.setAttribute("id", "firstPostInformation");
                         firstPost.appendChild(document.createTextNode(da));
                         document.getElementById("overview-postdates").appendChild(firstPost);
                         /* last posted */
-                        var da = `LAST POST: ${monthList[new Date(data.lastSeen.date).getMonth()]} ${rankifier(new Date(data.lastSeen.date).getDate())}, ${new Date(data.lastSeen.date).getFullYear()}`;
+                        var da = `LAST POST: ${monthList[new Date(data.lastSeen).getMonth()]} ${rankifier(new Date(data.lastSeen).getDate())}, ${new Date(data.lastSeen).getFullYear()}`;
                         lastPost = document.createElement("div");
                         lastPost.setAttribute("id", "lastPostInformation");
                         lastPost.appendChild(document.createTextNode(da));
@@ -251,7 +251,7 @@
                         profilepicture.setAttribute("src", `https://uploads.scratch.mit.edu/users/avatars/${otherdata.id}.png`);
                         document.getElementById("overview").appendChild(profilepicture);
                         /* pie graph setup */
-                        for (let i in data.counts)    {
+                        for (let i in data)    {
                             if (i != "total")   {
                                 console.log(i);
                                 /* box for particular category */
@@ -285,20 +285,20 @@
                                 categorycount = document.createElement("div");
                                 categorycount.setAttribute("id", i + " Post Count");
                                 categorycount.setAttribute("class", "categorycount");
-                                categorycount.appendChild(document.createTextNode(data.counts[i].count));
+                                categorycount.appendChild(document.createTextNode(data[i].count));
                                 document.getElementById("extrainfo" + i).appendChild(categorycount);
                                 /* category rank */
                                 categoryrank = document.createElement("div");
                                 categoryrank.setAttribute("id", i + " Ranking");
                                 categoryrank.setAttribute("class", "categoryrank");
-                                var ranking = rankifier(data.counts[i].rank);
+                                var ranking = rankifier(data[i].rank);
                                 categoryrank.appendChild(document.createTextNode(ranking));
                                 document.getElementById("extrainfo" + i).appendChild(categoryrank);
                                 /* category percentage */
                                 fullpostcount = document.createElement("div");
                                 fullpostcount.setAttribute("id", "totalposts" + i);
                                 fullpostcount.setAttribute("class", "postcountpercentage");
-                                var perecentageposts = Math.round(document.getElementById(i + " Post Count").innerHTML / data.counts.total.count * 100 * 100)/100;
+                                var perecentageposts = Math.round(document.getElementById(i + " Post Count").innerHTML / data.total.count * 100 * 100)/100;
                                 fullpostcount.appendChild(document.createTextNode(perecentageposts + "% of posts"));
                                 document.getElementById("extrainfo" + i).appendChild(fullpostcount);
                                 /* chart colors */
