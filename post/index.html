@@ -215,7 +215,7 @@
                     if (info.category != "total") {document.title = `${info.category}: Scratch Forums Statistics`;}
                     /* delete loading text */
                     document.getElementById("loadingtext").remove();
-                    let responsedata = data.users;                    
+                    let responsedata = data;                    
                     for (let j in responsedata)   {
                         if (responsedata[j].count == 0) {
                             break;
