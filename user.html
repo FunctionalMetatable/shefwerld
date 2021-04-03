@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf8">
-        <title>Scratch Forum Leaderboards</title>
+        <title>forum helper leaderboards</title>
         <script src="Chart.min.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
         <link href="userstyle.css" rel="stylesheet"> 
@@ -15,9 +15,9 @@
             <div id="navigation">
                 <a href="./?category=total">Leaderboards</a>
                 <a href="user?user=CatsUnited">Users</a>
-                <a href="history?user=CatsUnited">History</a>
-                <a href="javascript:themeswitch()" id="themeindicator"></a>
-                <a href="https://ocular.jeffalo.net">Customise Profile (Ocular)</a>
+                <a href="//shefwerld.rirurin.com/post/history?user=CatsUnited">history</a>
+                <a href="//shefwerld.rirurin.com/post/">View All Forum Stats (shefwerld)</a>
+                <a href="https://ocular.jeffalo.net/">Customise Profile (ocular)</a>
             </div>
         </div>
             <form action="" method="get">
@@ -72,15 +72,23 @@
             <div id="content">
             </div>
         </div>
-        <div id="footer">
-            <div>Made by <a href="https://scratch.mit.edu/users/CatsUnited">CatsUnited</a></div>
-            <div>Data from <a href="https://scratchdb.lefty.one/">ScratchDB</a> by <a href="https://scratch.mit.edu/users/DatOneLefty">DatOneLefty</a> and <a href="https://ocular.jeffalo.net/">Ocular</a> from <a href="https://scratch.mit.edu/users/Jeffalo">Jeffalo</a></div>
+            <div id="footer">
+                <div>UI taken from shefwerld which is created by <a href="https://scratch.mit.edu/users/CatsUnited">CatsUnited</a></div>
+                <div>Data from <a href="https://scratchdb.lefty.one/">ScratchDB</a> by <a href="https://scratch.mit.edu/users/DatOneLefty">DatOneLefty</a></div>
+                <div>tfh api by <a href="//scratch.mit.edu/users/9gr">9gr</a></div>
+                <div>More links<br>
+                <a href="tfhgraph.mp4">TFH Post Count History</a><br>
+                <a href="postleaderboard.csv">TFH Post Count CSV file</a>
+                </div>
+            </div>
         </div>
         <div id="nowlaugh"></div>
         <div style="color: #FFF; text-align: center; font-family: 'Comic Sans MS', Comic Sans;">bottom text</div>
         <script>
-            if (localStorage.getItem("theme") == null)  {
-                var theme = 0
+            var theme;
+            if (localStorage.getItem("theme") === null)  {
+                theme = 0
+                localStorage.setItem("theme", theme)
             }
             let defaulttheme = window.matchMedia('(prefers-color-scheme: dark)').matches
             themeupdate = () => {
@@ -224,23 +232,23 @@
                         /* overview total posts */
                         overviewTotalPosts = document.createElement("div");
                         overviewTotalPosts.setAttribute("id", "overviewTotalPosts");
-                        console.log(data.total.count);
-                        overviewTotalPosts.appendChild(document.createTextNode(data.total.count));
+                        console.log(data.counts.total.count);
+                        overviewTotalPosts.appendChild(document.createTextNode(data.counts.total.count));
                         document.getElementById("overview-postinformation").appendChild(overviewTotalPosts);
                         /* overview rank */
                         overviewRank = document.createElement("div");
                         overviewRank.setAttribute("id", "overviewRank");
-                        var ranking = rankifier(data.total.rank);
+                        var ranking = rankifier(data.counts.total.rank);
                         overviewRank.appendChild(document.createTextNode(ranking));
                         document.getElementById("overview-postinformation").appendChild(overviewRank);
                         /* first posted */
-                        var da = `FIRST POST: ${monthList[new Date(data.firstSeen).getMonth()]} ${rankifier(new Date(data.firstSeen).getDate())}, ${new Date(data.firstSeen).getFullYear()}`;  
+                        var da = `FIRST POST: ${monthList[new Date(data.firstSeen.date).getMonth()]} ${rankifier(new Date(data.firstSeen.date).getDate())}, ${new Date(data.firstSeen.date).getFullYear()}`;  
                         firstPost = document.createElement("div");
                         firstPost.setAttribute("id", "firstPostInformation");
                         firstPost.appendChild(document.createTextNode(da));
                         document.getElementById("overview-postdates").appendChild(firstPost);
                         /* last posted */
-                        var da = `LAST POST: ${monthList[new Date(data.lastSeen).getMonth()]} ${rankifier(new Date(data.lastSeen).getDate())}, ${new Date(data.lastSeen).getFullYear()}`;
+                        var da = `LAST POST: ${monthList[new Date(data.lastSeen.date).getMonth()]} ${rankifier(new Date(data.lastSeen.date).getDate())}, ${new Date(data.lastSeen.date).getFullYear()}`;
                         lastPost = document.createElement("div");
                         lastPost.setAttribute("id", "lastPostInformation");
                         lastPost.appendChild(document.createTextNode(da));
@@ -251,7 +259,7 @@
                         profilepicture.setAttribute("src", `https://uploads.scratch.mit.edu/users/avatars/${otherdata.id}.png`);
                         document.getElementById("overview").appendChild(profilepicture);
                         /* pie graph setup */
-                        for (let i in data)    {
+                        for (let i in data.counts)    {
                             if (i != "total")   {
                                 console.log(i);
                                 /* box for particular category */
@@ -285,20 +293,20 @@
                                 categorycount = document.createElement("div");
                                 categorycount.setAttribute("id", i + " Post Count");
                                 categorycount.setAttribute("class", "categorycount");
-                                categorycount.appendChild(document.createTextNode(data[i].count));
+                                categorycount.appendChild(document.createTextNode(data.counts[i].count));
                                 document.getElementById("extrainfo" + i).appendChild(categorycount);
                                 /* category rank */
                                 categoryrank = document.createElement("div");
                                 categoryrank.setAttribute("id", i + " Ranking");
                                 categoryrank.setAttribute("class", "categoryrank");
-                                var ranking = rankifier(data[i].rank);
+                                var ranking = rankifier(data.counts[i].rank);
                                 categoryrank.appendChild(document.createTextNode(ranking));
                                 document.getElementById("extrainfo" + i).appendChild(categoryrank);
                                 /* category percentage */
                                 fullpostcount = document.createElement("div");
                                 fullpostcount.setAttribute("id", "totalposts" + i);
                                 fullpostcount.setAttribute("class", "postcountpercentage");
-                                var perecentageposts = Math.round(document.getElementById(i + " Post Count").innerHTML / data.total.count * 100 * 100)/100;
+                                var perecentageposts = Math.round(document.getElementById(i + " Post Count").innerHTML / data.counts.total.count * 100 * 100)/100;
                                 fullpostcount.appendChild(document.createTextNode(perecentageposts + "% of posts"));
                                 document.getElementById("extrainfo" + i).appendChild(fullpostcount);
                                 /* chart colors */
