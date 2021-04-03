@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf8">
-        <title>Scratch Forum Leaderboards</title>
+        <title>forum helper leaderboards</title>
         <script src="https://d3js.org/d3.v4.js"></script>
         <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -10,17 +10,17 @@
     </head>
     <body>
         <div id="top_text" style="margin: auto; text-align: center; margin-bottom: 5px;">
-            Forum Helpers Leaderboards (i use shefwerld gui)
+            Forum Helpers Leaderboards
         </div>
         <div id="heading">
         </div>
         <div id="container">
             <div id="navigation">
-                <a href="./?category=total">Leaderboards</a>
-                <a href="user?user=CatsUnited">Users</a>
-                <a href="history?user=CatsUnited">History</a>
-                <a href="javascript:themeswitch()" id="themeindicator"></a>
-                <a href="https://my-ocular.jeffalo.net/login">Customise Profile (Ocular)</a>
+                <a href="./?category=total">leaderboard</a>
+                <a href="user?user=CatsUnited">users</a>
+                <a href="//shefwerld.rirurin.com/post/history?user=CatsUnited">history</a>
+                <a href="//shefwerld.rirurin.com/post/">View All Forum Stats (shefwerld)</a>
+                <a href="https://ocular.jeffalo.net/">Customise Profile (ocular)</a>
             </div>
             <form action="" method="get">
                 <select name="category">
@@ -86,8 +86,9 @@
             </div>
             <div style="display: flex; justify-content: center;"><button onclick="window.location.href='#top_text'" style="margin: auto;">Return to Top</button></div>
             <div id="footer">
-                <div>Made by <a href="https://scratch.mit.edu/users/CatsUnited">CatsUnited</a></div>
+                <div>UI taken from shefwerld which is created by <a href="https://scratch.mit.edu/users/CatsUnited">CatsUnited</a></div>
                 <div>Data from <a href="https://scratchdb.lefty.one/">ScratchDB</a> by <a href="https://scratch.mit.edu/users/DatOneLefty">DatOneLefty</a></div>
+                <div>tfh api by <a href="//scratch.mit.edu/users/9gr">9gr</a></div>
                 <div>More links<br>
                 <a href="tfhgraph.mp4">TFH Post Count History</a><br>
                 <a href="postleaderboard.csv">TFH Post Count CSV file</a>
