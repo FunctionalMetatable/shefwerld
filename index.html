@@ -164,7 +164,7 @@
             }
             document.getElementById("nextpagebutton").value = Number(info.page) + 1
 
-            fetch(`https://tfh.9gr.repl.co/category/${info.category}`)
+            fetch(`https://tfh.9gr.repl.co/category/${info.category}/${info.page}`)
                 .then(res => res.json())
                 .then(data => {
                     /* modify webpage title */
