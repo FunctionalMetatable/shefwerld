@@ -163,7 +163,7 @@
 
 
             console.log(selectedUsername);
-            fetch(`https://scratchdb.lefty.one/v3/forum/user/info/${selectedUsername}`)
+            fetch(`https://tfh2.9gr.repl.co/v1/user/${selectedUsername}`)
                 .then(res => res.json())
                 .then(data => {
                     fetch(`https://scratchdb.lefty.one/v3/user/info/${selectedUsername}`)
